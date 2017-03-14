@@ -6,17 +6,18 @@
     "description": "This is a highly configurable webextension that will automatically expand common acrynoms and custom ones set by the user. It also automatically corrects spelling errors.",
 
     "icons": {
-        "48": "icons/border-48.png"
+        "48": "Icons/Kappa48.png",
+        "96": "Icons/Kappa96.png"
     },
     "background": {
         "scripts": ["BackgroundScriptF/BsMain.js"]
     },
     "browser_action": {
         "default_icon": {
-            "19": "Icons/geo-19.png",
-            "38": "Icons/geo-38.png"
+            "19": "Icons/Kappa19.png",
+            "38": "Icons/Kappa38.png"
         },
-        "default_title": "Whereami?",
+        "default_title": "Autocorrect",
         "default_popup": "BrowserActionF/BaMain.html"
     },
     "options_ui": {
