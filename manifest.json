@@ -1,6 +1,6 @@
 {
     "manifest_version": 2,
-    "name": "Borderify",
+    "name": "Manifestatione Verborum",
     "version": "0.0",
 
     "description": "This is a highly configurable webextension that will automatically expand common acrynoms and custom ones set by the user. It also automatically corrects spelling errors.",
