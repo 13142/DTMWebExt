@@ -9,9 +9,12 @@
         "48": "Icons/Kappa48.png",
         "96": "Icons/Kappa96.png"
     },
-    "background": {
-        "scripts": ["BackgroundScriptF/BsMain.js"]
-    },
+    "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["ContentScriptsF/CsMain.js"]
+    }
+  ],
     "browser_action": {
         "default_icon": {
             "19": "Icons/Kappa19.png",
@@ -21,6 +24,9 @@
         "default_popup": "BrowserActionF/BaMain.html"
     },
     "options_ui": {
-        "page": "OptionsF/OpMain.html"
-    }
+        "page": "OptionsF/OpMain.html",
+        "open_in_tab":false
+    },
+
+    "permissions": ["storage"]
 }
