@@ -27,6 +27,5 @@
         "page": "OptionsF/OpMain.html",
         "open_in_tab":false
     },
-
     "permissions": ["storage"]
 }
