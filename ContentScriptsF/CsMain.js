@@ -1,25 +1,33 @@
-window.onload = function WindowLoad(event) {
-}
-document.addEventListener('focus',FocusChange, true);
+window.onload = function WindowLoad(event) {}
+document.addEventListener('focus', FocusChange, true);
 //document.addEventListener('focusin', FocusChange);
-OS.File.read("/Wordlists/words.txt").then(function(data) {
-  // do something with the retrieved data;
-}, function(ex) {
-  if (ex.becauseNoSuchFile) {
-    console.log("terwtet435435435435");
-  }
-  else {
-  console.log("Othererror");
-  }
-});
-function FocusChange(e) {
-  var innerString =  document.activeElement.innerText;
-  var splitString = innerString.Split(' ');
-for (var i = 0; i < splitString.length; i++) {
-
-  splitString[i]
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                console.log(allText.split(/\r?\n/)[500]);
+            }
+        }
+    }
+    rawFile.send(null);
 }
-    console.log(levDist("kitten","sitting"));
+readTextFile(browser.extension.getURL("Wordlists/words.txt"));
+function FocusChange(e) {
+    var innerString = document.activeElement.innerText;
+    var splitString = innerString.split(' ');
+    for (var i = 0; i < splitString.length; i++) {
+
+        //splitString[i]
+    }
+    console.log(browser.extension.getURL("Wordlists/words.txt"));
+    console.log(levDist("kitten", "sitting"));
 }
 
 
