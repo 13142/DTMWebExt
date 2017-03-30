@@ -1,39 +1,118 @@
 window.onload = function WindowLoad(event) {}
 document.addEventListener('focus', FocusChange, true);
 //document.addEventListener('focusin', FocusChange);
-function readTextFile(file)
-{
+var allWordlistData = [];
+var qwertyKeyboardArray = [
+    ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
+    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
+    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\''],
+    ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
+    ['', '', ' ', ' ', ' ', ' ', ' ', '', '']
+];
+
+var qwertyShiftedKeyboardArray = [
+    ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+'],
+    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"'],
+    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'],
+    ['', '', ' ', ' ', ' ', ' ', ' ', '', '']
+];
+
+function readTextFile(file) {
     var rawFile = new XMLHttpRequest();
     rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4)
-        {
-            if(rawFile.status === 200 || rawFile.status == 0)
-            {
+    rawFile.onreadystatechange = function() {
+        if (rawFile.readyState === 4) {
+            if (rawFile.status === 200 || rawFile.status == 0) {
                 var allText = rawFile.responseText;
-                console.log(allText.split(/\r?\n/)[500]);
+                allWordlistData = allText.split(/\r?\n/);
             }
         }
-    }
+    };
     rawFile.send(null);
 }
 readTextFile(browser.extension.getURL("Wordlists/words.txt"));
+
 function FocusChange(e) {
+    if (allWordlistData.length == 0) {
+        return;
+    }
     var innerString = document.activeElement.innerText;
     var splitString = innerString.split(' ');
-    for (var i = 0; i < splitString.length; i++) {
+    // for (var i = 0; i < splitString.length; i++) {
+    //     console.log(binarySearch(allWordlistData, splitString[i].trim(), function(a, b) {
+    //         if (a == b) {
+    //             return 0;
+    //         } else if (a < b) {
+    //             return -1;
+    //         } else if (a > b) {
+    //             return 1;
+    //         }
+    //     }));
+    // }
 
-        //splitString[i]
-    }
-    console.log(browser.extension.getURL("Wordlists/words.txt"));
-    console.log(levDist("kitten", "sitting"));
+        console.log(distanceFinder("R","A"));
 }
 
+function distanceFinder(firstChar, secondChar) {
+    var firstKey = itemFinder(firstChar, qwertyKeyboardArray, qwertyShiftedKeyboardArray);
+    var secondKey = itemFinder(secondChar, qwertyKeyboardArray, qwertyShiftedKeyboardArray);
 
+    return Math.pow(Math.pow(firstKey.x - secondKey.x, 2) + Math.pow(firstKey.y - secondKey.y, 2), 0.5);
+}
+
+function binarySearch(ar, el, compFunc) {
+    var m = 0;
+    var n = ar.length - 1;
+    while (m <= n) {
+        var k = (n + m) >> 1;
+        var cmp = compFunc(el, ar[k]);
+        if (cmp > 0) {
+            m = k + 1;
+        } else if (cmp < 0) {
+            n = k - 1;
+        } else {
+            //        console.log(ar[k]);
+            return k;
+        }
+    }
+    return -m - 1;
+}
+
+// var keyboardLayoutLookup = {
+//     "QWERTY": {
+//         qwertyKeyboardArray,
+//         qwertyShiftedKeyboardArray
+//     }
+// };
+
+function itemFinder(item, array, secondArray) {
+    for (var i = 0; i < array.length; i++) {
+        for (var ii = 0; ii < array[i].length; ii++) {
+            if (array[i][ii] == item) {
+                return {
+                    "y": i,
+                    "x": ii
+                };
+            }
+        }
+    }
+    if (secondArray) {
+        for (var i = 0; i < secondArray.length; i++) {
+            for (var ii = 0; ii < secondArray[i].length; ii++) {
+                if (secondArray[i][ii] == item) {
+                    return {
+                        "y": i,
+                        "x": ii
+                    };
+                }
+            }
+        }
+    }
+    return NULL;
+}
 var levDist = function(s, t) {
     var d = []; //2d matrix
-
     // Step 1
     var n = s.length;
     var m = t.length;
