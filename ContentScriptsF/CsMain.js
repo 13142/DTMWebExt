@@ -1,83 +1,122 @@
-window.onload = function WindowLoad(event) {}
-document.addEventListener('focus', FocusChange, true);
-//document.addEventListener('focusin', FocusChange);
+// window.onload = function WindowLoad(event) {}
+// document.addEventListener('focus', FocusChange, true);
+// document.addEventListener('focusin', FocusChange);
+
 var allWordlistData = [];
 var qwertyKeyboardArray = [
-    ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
-    ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'],
-    ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\''],
-    ['z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
-    ['', '', ' ', ' ', ' ', ' ', ' ', '', '']
+  ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
+  ['', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', ' ', 'p', '[', ']', '\\'],
+  ['', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ' ', ';', '\''],
+  ['', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
+  ['', '', '', ' ', ' ', ' ', ' ', ' ', '', '']
 ];
 
 var qwertyShiftedKeyboardArray = [
-    ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+'],
-    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', '{', '}', '|'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', ':', '"'],
-    ['Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'],
-    ['', '', ' ', ' ', ' ', ' ', ' ', '', '']
+  ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+'],
+  ['', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', '', 'P', '{', '}', '|'],
+  ['', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '', ':', '"'],
+  ['', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'],
+  ['', '', ' ', ' ', ' ', ' ', ' ', '', '']
 ];
 
-function readTextFile(file) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", file, false);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4) {
-            if (rawFile.status === 200 || rawFile.status == 0) {
-                var allText = rawFile.responseText;
-                allWordlistData = allText.split(/\r?\n/);
-            }
-        }
-    };
-    rawFile.send(null);
+window.addEventListener("click", notifyExtension);
+
+function notifyExtension(e) {
+
+  if (e.target.tagName != "A") {
+    return;
+  }
+  console.log("Stuff happened");
 }
-readTextFile(browser.extension.getURL("Wordlists/words.txt"));
+
+function handleResponse(message) {
+  console.log('background script sent a response: ' + message.response[50]);
+}
+
+function handleError(error) {
+  console.log('Error: ' + error);
+}
+
+// var stdin = process.openStdin();
+// console.log("ready: ");
+// stdin.addListener("data", function(d) {
+//     // note:  d is an object, and when converted to a string it will
+//     // end with a linefeed.  so we (rather crudely) account for that
+//     // with toString() and then trim()
+//     d = d.toString().replace(/\r?\n|\r/g, "");
+//     var dif = d.split(' ');
+//     console.log(dif);
+//     console.log("difference: " + levDist(dif[0], dif[1]));
+// });
+function isEmptyOrSpaces(str) {
+  return str === null || str.match(/^ *$/) !== null;
+}
+
+function keyDown(zEvent) {
+  console.log(zEvent.code);
+  if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyM") {
+    var innerString = document.activeElement.innerText;
+    var splitString = innerString.split(/\s+/);
+    for (var i = 0; i < splitString.length; i++) {
+      if (isEmptyOrSpaces(splitString[i])) {
+        splitString.splice(i,1);
+        i--;
+        continue;
+      }
+      splitString[i] = splitString[i].replace(/[\.\;\,\?\!]+/, "");
+    }
+    var sending = browser.runtime.sendMessage({
+      "textBoxData": splitString
+    });
+    sending.then(handleResponse);
+  }
+}
+
+// function keyDown(e) {console.log(e.which);}; // Test
+// function keyUp(e) {console.log(e);}; // Test
+(function checkForNewIframe(doc) {
+  if (!doc) return; // document does not exist. Cya
+
+  // Note: It is important to use "true", to bind events to the capturing
+  // phase. If omitted or set to false, the event listener will be bound
+  // to the bubbling phase, where the event is not visible any more when
+  // Gmail calls event.stopPropagation().
+  // Calling addEventListener with the same arguments multiple times bind
+  // the listener only once, so we don't have to set a guard for that.
+  doc.addEventListener('keydown', keyDown, true);
+  //    doc.addEventListener('keyup', keyUp, true);
+  doc.hasSeenDocument = true;
+  for (var i = 0, contentDocument; i < frames.length; i++) {
+    try {
+      contentDocument = iframes[i].document;
+    } catch (e) {
+      continue; // Same-origin policy violation?
+    }
+    if (contentDocument && !contentDocument.hasSeenDocument) {
+      // Add poller to the new iframe
+      checkForNewIframe(iframes[i].contentDocument);
+    }
+  }
+  setTimeout(checkForNewIframe, 250, doc); // <-- delay of 1/4 second
+})(document); // Initiate recursive function for the document.
 
 function FocusChange(e) {
-    if (allWordlistData.length == 0) {
-        return;
-    }
-    var innerString = document.activeElement.innerText;
-    var splitString = innerString.split(' ');
-    // for (var i = 0; i < splitString.length; i++) {
-    //     console.log(binarySearch(allWordlistData, splitString[i].trim(), function(a, b) {
-    //         if (a == b) {
-    //             return 0;
-    //         } else if (a < b) {
-    //             return -1;
-    //         } else if (a > b) {
-    //             return 1;
-    //         }
-    //     }));
-    // }
 
-        console.log(distanceFinder("R","A"));
+  // for (var i = 0; i < splitString.length; i++) {
+  //     console.log(binarySearch(allWordlistData, splitString[i].trim(), function(a, b) {
+  //         if (a == b) {
+  //             return 0;
+  //         } else if (a < b) {
+  //             return -1;
+  //         } else if (a > b) {
+  //             return 1;
+  //         }
+  //     }));
+  // }
+
+  //  console.log(distanceFinder("R", "A"));
 }
 
-function distanceFinder(firstChar, secondChar) {
-    var firstKey = itemFinder(firstChar, qwertyKeyboardArray, qwertyShiftedKeyboardArray);
-    var secondKey = itemFinder(secondChar, qwertyKeyboardArray, qwertyShiftedKeyboardArray);
-
-    return Math.pow(Math.pow(firstKey.x - secondKey.x, 2) + Math.pow(firstKey.y - secondKey.y, 2), 0.5);
-}
-
-function binarySearch(ar, el, compFunc) {
-    var m = 0;
-    var n = ar.length - 1;
-    while (m <= n) {
-        var k = (n + m) >> 1;
-        var cmp = compFunc(el, ar[k]);
-        if (cmp > 0) {
-            m = k + 1;
-        } else if (cmp < 0) {
-            n = k - 1;
-        } else {
-            //        console.log(ar[k]);
-            return k;
-        }
-    }
-    return -m - 1;
-}
 
 // var keyboardLayoutLookup = {
 //     "QWERTY": {
@@ -85,78 +124,3 @@ function binarySearch(ar, el, compFunc) {
 //         qwertyShiftedKeyboardArray
 //     }
 // };
-
-function itemFinder(item, array, secondArray) {
-    for (var i = 0; i < array.length; i++) {
-        for (var ii = 0; ii < array[i].length; ii++) {
-            if (array[i][ii] == item) {
-                return {
-                    "y": i,
-                    "x": ii
-                };
-            }
-        }
-    }
-    if (secondArray) {
-        for (var i = 0; i < secondArray.length; i++) {
-            for (var ii = 0; ii < secondArray[i].length; ii++) {
-                if (secondArray[i][ii] == item) {
-                    return {
-                        "y": i,
-                        "x": ii
-                    };
-                }
-            }
-        }
-    }
-    return NULL;
-}
-var levDist = function(s, t) {
-    var d = []; //2d matrix
-    // Step 1
-    var n = s.length;
-    var m = t.length;
-
-    if (n == 0) return m;
-    if (m == 0) return n;
-
-    //Create an array of arrays in javascript (a descending loop is quicker)
-    for (var i = n; i >= 0; i--) d[i] = [];
-
-    // Step 2
-    for (var i = n; i >= 0; i--) d[i][0] = i;
-    for (var j = m; j >= 0; j--) d[0][j] = j;
-
-    // Step 3
-    for (var i = 1; i <= n; i++) {
-        var s_i = s.charAt(i - 1);
-
-        // Step 4
-        for (var j = 1; j <= m; j++) {
-
-            //Check the jagged ld total so far
-            if (i == j && d[i][j] > 4) return n;
-
-            var t_j = t.charAt(j - 1);
-            var cost = (s_i == t_j) ? 0 : 1; // Step 5
-
-            //Calculate the minimum
-            var mi = d[i - 1][j] + 1;
-            var b = d[i][j - 1] + 1;
-            var c = d[i - 1][j - 1] + cost;
-
-            if (b < mi) mi = b;
-            if (c < mi) mi = c;
-
-            d[i][j] = mi; // Step 6
-
-            //Damerau transposition
-            if (i > 1 && j > 1 && s_i == t.charAt(j - 2) && s.charAt(i - 2) == t_j) {
-                d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + cost);
-            }
-        }
-    }
-
-    // Step 7
-    return d[n][m];
-}
