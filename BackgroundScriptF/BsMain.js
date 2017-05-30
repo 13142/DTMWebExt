@@ -24,6 +24,7 @@ readTextFile(browser.extension.getURL("Wordlists/wordlist2.txt"), function(arr) 
 readTextFile(browser.extension.getURL("Wordlists/20k.txt"), function(arr) {
   miniWordlist = arr;
 });
+
 readTextFile(browser.extension.getURL("Wordlists/expandList.txt"), function(arr) {
   for (var i = 0; i < arr.length; i++) {
     var temp = arr[i].split(':');
@@ -43,6 +44,7 @@ function readTextFile(file, finFunc) {
     if (rawFile.readyState === 4) {
       if (rawFile.status === 200 || rawFile.status === 0) {
         var allText = rawFile.responseText;
+
         finFunc(allText.split(/\r?\n/));
       }
     }
@@ -90,16 +92,18 @@ function ExpandStuff(rawData) {
   for (var i = 0; i < data.length; i++) {
     let success = false;
     for (var ii = 0; ii < expandList.length; ii++) {
-      if (expandList[ii].arcy === data[i].toLowerCase()) {
-        rawData.replace("*<!#^!>*", "!!-" + expandList[ii].expanded);
+      console.log(expandList[ii].acry + "   ---   " + data[i]);
+      if (expandList[ii].acry == data[i]) {
+        rawData = rawData.replace("*<!#^!>*", "!!-" + expandList[ii].expanded);
         success = true;
         break;
       }
     }
     if (!success) {
-      rawData.replace("*<!#^!>*", data[i]);
+      rawData = rawData.replace("*<!#^!>*", data[i]);
     }
   }
+  return rawData;
 }
 
 

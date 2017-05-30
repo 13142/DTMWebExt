@@ -31,7 +31,8 @@
     },
     "web_accessible_resources": [
         "Wordlists/words.txt",
-        "Wordlists/20k.txt"
+        "Wordlists/20k.txt",
+        "Wordlists/expandList.txt"
     ],
     "permissions": ["storage"]
 }

@@ -55,7 +55,7 @@ function isEmptyOrSpaces(str) {
 function keyDown(zEvent) {
   if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyM") {
     var innerString = document.activeElement.innerText;
-    var selectedText;
+    var selectedText = innerString;
     // if (selectedText == '') {
     //   var frames = window.frames;
     //   for (var i = 0; i < frames.length; i++) {
