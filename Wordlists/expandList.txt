@@ -1,4 +1,5 @@
 2f4u:too fast for you
+aoe:area of effect
 afaik:as far as I know
 afiar:as far as I remember
 aka:also known as
@@ -17,7 +18,7 @@ fka:formally known as
 fwiw:for what it's worth
 fyi:for your information
 hf:have function
-hth: hope this helps
+hth:hope this helps
 iirc:if I recall correctly
 ign:in game name
 irn:i regret nothings
@@ -31,6 +32,8 @@ NaN:not a number
 nntr:no need to reply
 noyb:none of your business
 nrn:no reply necessary
+ofc:of cause
+tbh:to be honest
 omg:oh my god
 op:original post
 opop:overpowered

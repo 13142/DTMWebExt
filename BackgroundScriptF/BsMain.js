@@ -91,10 +91,17 @@ function ExpandStuff(rawData) {
   rawData = rawData.replace(/[a-zA-Z\d]+/g, "*<!#^!>*");
   for (var i = 0; i < data.length; i++) {
     let success = false;
+    let capatalizeOutput = false;
+    if (data[i][0] === data[i][0].toUpperCase()) {
+      capatalizeOutput = true;
+    }
     for (var ii = 0; ii < expandList.length; ii++) {
-      console.log(expandList[ii].acry + "   ---   " + data[i]);
-      if (expandList[ii].acry == data[i]) {
-        rawData = rawData.replace("*<!#^!>*", "!!-" + expandList[ii].expanded);
+      if (expandList[ii].acry == data[i].toLowerCase()) {
+        if (capatalizeOutput) {
+          rawData = rawData.replace("*<!#^!>*", "!!-" + capitalizeFirstLetter(expandList[ii].expanded));
+        } else {
+          rawData = rawData.replace("*<!#^!>*", "!!-" + expandList[ii].expanded);
+        }
         success = true;
         break;
       }
@@ -106,6 +113,9 @@ function ExpandStuff(rawData) {
   return rawData;
 }
 
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function GetCorrection(data, rawData) {
   if (/^!!-/.test(data)) {
