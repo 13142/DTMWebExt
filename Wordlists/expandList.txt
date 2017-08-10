@@ -40,6 +40,7 @@ opop:overpowered
 pov:point of view
 rtm:read the manual
 rtfp:read the fine print
+rply:reply
 scnr:sorry, could not resist
 sflr:sorry for the late reply
 spoc:single point of contact
@@ -50,6 +51,7 @@ thx:thanks
 tq:thank you
 tyvm:thank you very much
 tyt:take your time
+txt:text
 ttyl:talk to you later
 wfm:works for me
 wrt:with regard to

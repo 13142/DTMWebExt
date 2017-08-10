@@ -1,0 +1,196 @@
+undefined:absence – absense, absance
+undefined:acceptable – acceptible
+undefined:accidentally/accidently – accidentaly
+undefined:accommodate – accomodate, acommodate
+undefined:achieve – acheive
+undefined:acknowledge – acknowlege, aknowledge
+undefined:acquaintance – acquaintence, aquaintance
+undefined:acquire – aquire, adquire
+undefined:acquit – aquit
+undefined:acreage – acrage, acerage
+undefined:address – adress
+undefined:adultery – adultary
+undefined:advisable – adviseable, advizable
+undefined:affect – effect
+undefined:aggression – agression
+undefined:aggressive – agressive
+undefined:allegiance – allegaince, allegience, alegiance
+undefined:almost – allmost
+undefined:a lot – alot (must be two words)
+undefined:amateur – amatuer, amature
+undefined:annually – anually, annualy
+undefined:apparent – apparant, aparent
+undefined:arctic – artic
+undefined:argument – arguement
+undefined:atheist – athiest
+undefined:awful – awfull, aweful
+undefined:because – becuase
+undefined:becoming – becomeing
+undefined:beginning – begining
+undefined:believe – beleive
+undefined:bellwether – bellweather
+undefined:buoy/buoyant – bouy/bouyant
+undefined:business – buisness
+undefined:calendar – calender
+undefined:camouflage – camoflage, camoflague
+undefined:capitol – capital
+undefined:Caribbean – Carribean
+undefined:category – catagory
+undefined:caught – cauhgt, caugt
+undefined:cemetery – cemetary,
+undefined:changeable – changable
+undefined:chief – cheif
+undefined:colleague – collaegue, collegue
+undefined:collectible – collectable
+undefined:column – colum
+undefined:coming – comming
+undefined:committed – commited, comitted
+undefined:concede – conceed
+undefined:congratulate – congradulate
+undefined:conscientious – consciencious
+undefined:conscious – concious, consious
+undefined:consensus – concensus
+undefined:controversy – contraversy
+undefined:coolly – cooly
+undefined:daiquiri – dacquiri, daquiri
+undefined:deceive – decieve
+undefined:definite – definate,
+undefined:definitely – definitly,
+undefined:desperate – desparate
+undefined:difference – diffrence
+undefined:dilemma – dilema
+undefined:disappoint – disapoint
+undefined:disastrous – disasterous
+undefined:drunkenness – drunkeness
+undefined:dumbbell – dumbell
+undefined:embarrass – embarass
+undefined:equipment – equiptment (wrong in numerous webpages)
+undefined:exceed – excede
+undefined:exhilarate – exilerate
+undefined:existence – existance
+undefined:experience – experiance
+undefined:extreme – extreem
+undefined:fascinating – facinating
+undefined:fiery – firey
+undefined:fluorescent – flourescent
+undefined:foreign – foriegn
+undefined:friend – freind
+undefined:fulfil – fullfil (American: fulfill)
+undefined:gauge – guage
+undefined:grateful – gratefull, greatful
+undefined:guarantee – garantee, garentee, garanty
+undefined:guidance – guidence
+undefined:harass – harrass
+undefined:height – heighth, heigth
+undefined:hierarchy – heirarchy
+undefined:hors d'oeuvres – hors derves, ordeurves
+undefined:humorous – humerous
+undefined:hygiene – hygene, hygine, hiygeine, higeine, hygeine
+undefined:hypocrisy/hypocrite – hipocrit
+undefined:ignorance – ignorence
+undefined:imitate – immitate
+undefined:immediately – imediately
+undefined:independent – independant
+undefined:indispensable – indispensible
+undefined:inoculate – innoculate
+undefined:intelligence – inteligence, intelligance
+undefined:jewelry (UK: jewellery) – jewelery
+undefined:judgment – judgement (issue in the U.S.)
+undefined:kernel – kernal, distinct from homophone colonel
+undefined:liaison – liason
+undefined:library – libary, liberry
+undefined:license – lisence
+undefined:lightning – lightening
+undefined:lose – loose
+undefined:maintenance – maintainance, maintnance
+undefined:medieval – medeval, medevil, mideval
+undefined:memento – momento
+undefined:millennium – millenium, milennium
+undefined:miniature – miniture
+undefined:minuscule – miniscule
+standard despite being current and existing since at least the 16th century.):mischievous – mischievious, mischevous, mischevious (The spelling "mischievious" and the corresponding pronunciation are still considered non
+undefined:misspell – mispell, misspel
+undefined:necessary – neccessary, necessery
+undefined:niece – neice
+undefined:neighbor – nieghbor
+undefined:noticeable – noticable
+undefined:occasion – occassion
+undefined:occasionally – occasionaly, occassionally
+undefined:occurrence – occurrance, occurence
+undefined:occurred – occured
+undefined:omission – ommision, omision
+undefined:original – orignal
+undefined:outrageous – outragous
+undefined:parliament – parliment
+undefined:pastime – passtime, pasttime
+undefined:perceive – percieve
+undefined:perseverance – perseverence
+undefined:personnel – personell, personel
+undefined:plagiarize – plagerize
+undefined:playwright – playright, playwrite
+undefined:possession – posession, possesion
+undefined:potatoes – potatos
+undefined:precede – preceed
+undefined:presence – presance
+undefined:principle – principal
+undefined:privilege – privelege, priviledge
+undefined:professor – professer
+undefined:promise – promiss
+undefined:pronunciation – pronounciation
+undefined:proof – prufe
+undefined:prophecy (as noun) – prophesy (valid as verb)
+undefined:publicly – publically
+undefined:quarantine – quarentine
+B:queue – que (from Bar
+undefined:questionnaire – questionaire, questionnair
+undefined:readable – readible
+undefined:really – realy
+undefined:receive – recieve
+undefined:receipt – reciept
+undefined:recommend – recomend, reccommend
+undefined:referred – refered
+undefined:reference – referance, refrence
+undefined:relevant – relevent, revelant
+undefined:religious – religous, religius
+undefined:repetition – repitition
+undefined:restaurant – restarant, restaraunt
+undefined:rhyme – rime
+undefined:rhythm – rythm, rythem
+undefined:secretary – secratary, secretery
+undefined:seize – sieze
+undefined:separate – seperate
+undefined:sergeant – sargent
+undefined:similar – similer
+undefined:skilful – skilfull (American: skillful)
+undefined:speech – speach, speeche (archaic)
+undefined:successful – succesful, successfull, sucessful
+undefined:supersede – supercede
+undefined:surprise – suprise, surprize
+undefined:their – there, they're
+undefined:tomatoes – tomatos
+undefined:tomorrow – tommorow, tommorrow
+undefined:twelfth – twelth
+undefined:tyranny – tyrany
+undefined:underrate – underate
+undefined:until – untill
+undefined:upholstery – upholstry
+undefined:usable/useable – usible
+undefined:vacuum – vaccuum, vaccum, vacume
+undefined:vehicle – vehical
+undefined:vicious – visious
+undefined:weather – wether
+undefined:weird – wierd
+undefined:welfare – wellfare, welfair
+undefined:whether – wether
+undefined:wilful – wilfull (American: willful)
+undefined:withhold – withold
+undefined:writing – writting, writeing
+undefined:letters are doubled, or more frequently double letters tripled, such as "betwween" and "betweeen"
+undefined:letters are singled, such as "betwen"
+undefined:keys are transposed, so "because" becomes "becuase". 
+undefined:"Canadian, British and American Spelling", LukeMastin.com, December 2008, webpage: 
+undefined:"Canadian, British and American Spelling: Some Commonly Misspelled Words", LukeMastin.com, December 2008, webpage: 
+Webster Online" (results for misspelling as "concensus"), Merriam:"Merriam
+undefined:"200 Most Commonly Misspelled Words (Part 1)", Richard Nordquist, About.com, December 2008, webpage: 
+undefined:"200 Most Commonly Misspelled Words (Part 2)", Richard Nordquist, About.com, December 2008, webpage: 
+undefined:"200 Most Commonly Misspelled Words (Part 3)", Richard Nordquist, About.com, December 2008, webpage: 
