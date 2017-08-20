@@ -33,7 +33,17 @@ readTextFile(browser.extension.getURL("Wordlists/expandList.txt"), function(arr)
       expanded: temp[1]
     };
   }
-  expandList = arr;
+  expandList = expandList.concat(arr);
+});
+readTextFile(browser.extension.getURL("Wordlists/commonlyMisspelt.txt"), function(arr) {
+  for (var i = 0; i < arr.length; i++) {
+    var temp = arr[i].split(':');
+    arr[i] = {
+      acry: temp[0],
+      expanded: temp[1]
+    };
+  }
+  expandList = expandList.concat(arr);
 });
 //console.log(allWordlistDataMain.length);
 
