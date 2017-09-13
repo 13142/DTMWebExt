@@ -1,7 +1,7 @@
 2f4u:too fast for you
 aoe:area of effect
 afaik:as far as I know
-afiar:as far as I remember
+afair:as far as I remember
 aka:also known as
 btw:by the way
 btt:back to topic
@@ -21,7 +21,7 @@ hf:have function
 hth:hope this helps
 iirc:if I recall correctly
 ign:in game name
-irn:i regret nothings
+irn:I regret nothings
 imho:in my humble opinion
 imo:in my opinion
 imnsho:in my not so humble opinion
@@ -34,7 +34,7 @@ noyb:none of your business
 nrn:no reply necessary
 ofc:of cause
 tbh:to be honest
-omg:oh my god
+omg:Oh My God
 op:original post
 opop:overpowered
 pov:point of view

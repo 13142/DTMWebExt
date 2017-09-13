@@ -1,10 +1,13 @@
 {
     "manifest_version": 2,
-    "name": "Manifestatione Verborum",
+    "name": "Verbis",
     "version": "0.0",
-
     "description": "This is a highly configurable webextension that will automatically expand common acrynoms and custom ones set by the user. It also automatically corrects spelling errors.",
-
+    "applications": {
+        "gecko": {
+            "id": "13142@gmail.com"
+        }
+    },
     "icons": {
         "48": "Icons/Kappa48.png",
         "96": "Icons/Kappa96.png"
@@ -12,10 +15,10 @@
     "content_scripts": [{
         "matches": ["<all_urls>"],
         "js": ["ContentScriptsF/CsMain.js"],
-         "run_at": "document_end"
+        "run_at": "document_end"
     }],
     "background": {
-      "scripts": ["BackgroundScriptF/BsMain.js"]
+        "scripts": ["BackgroundScriptF/BsMain.js"]
     },
     "browser_action": {
         "default_icon": {
@@ -32,7 +35,7 @@
     "web_accessible_resources": [
         "Wordlists/words.txt",
         "Wordlists/20k.txt",
-        "Wordlists/expandList.txt", 
+        "Wordlists/expandList.txt",
         "Wordlists/commonlyMisspelt"
     ],
     "permissions": ["storage"]

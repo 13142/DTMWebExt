@@ -1,6 +1,7 @@
 var allWordlistDataMain = [];
 var miniWordlist = [];
 var expandList = [];
+var commonlyMisspelt = [];
 
 var qwertyKeyboardArray = [
   ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
@@ -25,16 +26,62 @@ readTextFile(browser.extension.getURL("Wordlists/20k.txt"), function(arr) {
   miniWordlist = arr;
 });
 
-readTextFile(browser.extension.getURL("Wordlists/expandList.txt"), function(arr) {
-  for (var i = 0; i < arr.length; i++) {
-    var temp = arr[i].split(':');
-    arr[i] = {
-      acry: temp[0],
-      expanded: temp[1]
-    };
+// readTextFile(browser.extension.getURL("Wordlists/expandList.txt"), function(arr) {
+//   for (var i = 0; i < arr.length; i++) {
+//     var temp = arr[i].split(':');
+//     arr[i] = {
+//       acry: temp[0],
+//       expanded: temp[1]
+//     };
+//   }
+//   expandList = expandList.concat(arr);
+// });
+
+async function loadAndSave() {
+  let expandList2 = [];
+  const acyStore = await browser.storage.sync.get("shortenedAcrynoms");
+  if (Object.keys(acyStore).length === 0) {
+    var arr = await readTextFile(browser.extension.getURL("Wordlists/expandList.txt"));
+    for (var i = 0; i < arr.length; i++) {
+      var temp = arr[i].split(':');
+      arr[i] = {
+        acry: temp[0],
+        expanded: temp[1]
+      };
+    }
+    expandList2 = expandList2.concat(arr);
+    browser.storage.sync.set({
+      shortenedAcrynoms: expandList
+    });
+
+    return expandList2;
+  } else {
+    return acyStore.shortenedAcrynoms;
   }
-  expandList = expandList.concat(arr);
-});
+}
+
+async function loadingExpand() {
+  expandList = (await loadAndSave());
+}
+loadingExpand();
+
+async function readTextFileAsync(file) {
+  var rawFile = new XMLHttpRequest();
+  rawFile.open("GET", file, false);
+
+  var temp = new Promise(function(resolve, reject) {
+    rawFile.onreadystatechange = function() {
+      if (rawFile.readyState === 4) {
+        if (rawFile.status === 200 || rawFile.status === 0) {
+          var allText = rawFile.responseText;
+          resolve(allText.split(/\r?\n/))
+        }
+      }
+    };
+  });
+  rawFile.send(null);
+  return temp;
+}
 readTextFile(browser.extension.getURL("Wordlists/commonlyMisspelt.txt"), function(arr) {
   for (var i = 0; i < arr.length; i++) {
     var temp = arr[i].split(':');
@@ -43,9 +90,8 @@ readTextFile(browser.extension.getURL("Wordlists/commonlyMisspelt.txt"), functio
       expanded: temp[1]
     };
   }
-  expandList = expandList.concat(arr);
+  commonlyMisspeltArr = arr;
 });
-//console.log(allWordlistDataMain.length);
 
 function readTextFile(file, finFunc) {
   var rawFile = new XMLHttpRequest();
@@ -73,7 +119,8 @@ function notify(request, sender, sendResponse) {
   if (requestType === "fullCorrection") {
 
 
-    var rawData = ExpandStuff(request.textBoxData);
+    var rawData = ExpandStuff(request.textBoxData, commonlyMisspeltArr);
+    rawData = ExpandStuff(rawData, expandList);
     var data = rawData.match(/(\!\!\-)?[a-zA-Z]+/g);
     rawData = rawData.replace(/[a-zA-Z]+/g, "*<!#^!>*");
 
@@ -81,6 +128,8 @@ function notify(request, sender, sendResponse) {
       rawData = GetCorrection(data[i], rawData);
     }
     sendResponse(rawData);
+  } else if (requestType === "loaded") {
+    loadingExpand();
   }
   // } else if (requestType === "spaceCorrection") {
   // //  console.log(request.textBoxData);
@@ -96,7 +145,7 @@ function notify(request, sender, sendResponse) {
   // }
 }
 
-function ExpandStuff(rawData) {
+function ExpandStuff(rawData, listThing) {
   var data = rawData.match(/[a-zA-Z\d]+/g);
   rawData = rawData.replace(/[a-zA-Z\d]+/g, "*<!#^!>*");
   for (var i = 0; i < data.length; i++) {
@@ -105,12 +154,12 @@ function ExpandStuff(rawData) {
     if (data[i][0] === data[i][0].toUpperCase()) {
       capatalizeOutput = true;
     }
-    for (var ii = 0; ii < expandList.length; ii++) {
-      if (expandList[ii].acry == data[i].toLowerCase()) {
+    for (var ii = 0; ii < listThing.length; ii++) {
+      if (listThing[ii].acry == data[i].toLowerCase()) {
         if (capatalizeOutput) {
-          rawData = rawData.replace("*<!#^!>*", "!!-" + capitalizeFirstLetter(expandList[ii].expanded));
+          rawData = rawData.replace("*<!#^!>*", "!!-" + capitalizeFirstLetter(listThing[ii].expanded));
         } else {
-          rawData = rawData.replace("*<!#^!>*", "!!-" + expandList[ii].expanded);
+          rawData = rawData.replace("*<!#^!>*", "!!-" + listThing[ii].expanded);
         }
         success = true;
         break;
