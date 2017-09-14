@@ -1,0 +1,286 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,700');
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px;
+  text-align: left;
+  font-family: Lato;
+  color: #fff;
+  background:#6bafdb;
+  height: 120%;
+  user-select: none;
+  -moz-user-select: none;
+  cursor: default;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 40px;
+  font-weight: normal;
+  text-transform: uppercase;
+  float: left;
+  margin: 20px 0 100px 10px;
+}
+h1 span {
+  font-size: 13px;
+  display: block;
+  padding-left: 4px;
+}
+select {
+  height: 350px;
+}
+
+#wordsThings {
+  height: 90%;
+  overflow: auto;
+  width: 100%;
+}
+.entry {
+  background: #e6f3ff;
+  padding: 5px 10px;
+  transition: all 0.1s ease-in-out;
+  color: black;
+  cursor: pointer;
+  display: flex;
+}
+.entry.editing {
+    cursor: default !important;
+}
+.acrySubmitBtn {
+  flex: 0 0 65px;
+  margin-left: 20px;
+}
+.acryCancelBtn {
+  flex: 0 0 65px;
+  margin-left: 0px;
+}
+.acrynoms {
+  flex: 1 0 150px;
+
+}
+.expanded {
+    margin-left: 20px;
+  flex: 999 0 auto;
+}
+.entry:hover:not(.editing) {
+  background: #adddfc;
+  padding: 12px 10px;
+  outline: none;
+}
+
+input[type="text"] {
+    padding: 7px 15px;
+    border-radius: 4px;
+    border: #aaa solid medium;
+    transition: all 0.12s ease-out;
+}
+input[type="text"]:focus {
+    border: #666 solid medium;
+}
+input[type="text"].error {
+    border-color: rgb(255, 59, 59);
+}
+.entry:active {
+  background-color: lightblue !important;
+}
+.tabs {
+  width: 90%;
+  float: none;
+  list-style: none;
+  position: relative;
+  margin: 15px 0 0 10px;
+  text-align: left;
+  height: 450px;
+}
+.tabs li {
+  float: left;
+  display: block;
+}
+.tabs input[type="radio"] {
+  position: absolute;
+  top: 0;
+  left: -9999px;
+}
+.tabs label.tabLabel {
+  display: block;
+  padding: 14px 21px;
+  font-size: 20px;
+  font-weight: normal;
+  text-transform: uppercase;
+  background: rgba(20,109,197,0.5);
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.tabs label.tablabel:hover {
+  background: #237fda;
+}
+
+#tab1 ~ label {
+    margin-left: 7px;
+}
+.tabs .tab-content {
+  z-index: 2;
+  display: none;
+  overflow: hidden;
+  width: 100%;
+  font-size: 17px;
+  line-height: 25px;
+  padding: 25px;
+  position: absolute;
+  top: 53px;
+  left: 0;
+  background: #146dc5;
+  height: 400px;
+}
+.tabs [id^="tab"]:checked + label {
+  top: 0;
+  padding-top: 17px;
+  background: #146dc5;
+  border-radius: 2px 2px 0 0;
+}
+.tabs [id^="tab"]:checked ~ [id^="tab-content"] {
+  display: block;
+  border-radius: 3px;
+}
+
+p.link {
+  clear: both;
+  margin: 380px 0 0 15px;
+}
+p.link a {
+  text-transform: uppercase;
+    text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  padding: 5px 10px;
+  margin: 0 5px;
+  background-color: #612e76;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+}
+p.link a:hover {
+  background-color: #522764;
+}
+.button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #274cea;
+    color: white;
+    text-transform: uppercase;
+    font-family: 'Titillium Web';
+    font-size: 12pt;
+    border-collapse: collapse;
+}
+.button:first-of-type {
+    border-radius: 4px 0 0 4px;
+}
+.button:last-of-type {
+    border-radius: 0 4px 4px 0;
+}
+.button:hover {
+    background-color: #4179ff;
+}
+.button:active {
+    background-color: #003bb3;
+}
+.buttonGroup {
+  margin-top: 10px;
+  display: inline-block;
+  border: solid white 2px;
+  border-radius: 4px;
+}
+.buttonGroup .button {
+  float: left;
+  display: block;
+}
+.acryDeleteBtn.confirm {
+  background-color: rgb(223, 55, 55);
+}
+.acryDeleteBtn.confirm:hover {
+  background-color: rgb(244, 82, 82);
+}
+.acryDeleteBtn.confirm:active {
+  background-color: rgb(143, 33, 33);
+}
+  
+label.toggleBox {
+  display: block;
+  width: 54px;
+  height: 32px;
+  margin: 0px 10px;
+  float: right;
+  border-radius: 100px;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  background-color: #BABABA;
+    cursor: pointer;
+}
+.flexList {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border: solid white medium;
+  padding: 15px;
+}
+.flexItem {
+  flex: 1 0 100px;
+}
+input[type="checkbox"] {
+  display: none;
+}
+
+i {
+  height: 28px;
+  width: 28px;
+  background: #ffffff;
+  display: inline-block;
+  border-radius: 100px;
+  margin-top: 2px;
+  margin-left: 2px;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  pointer-events: none;
+
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+label[type="checkbox"]:hover>i {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.20);
+  transform: scale(1.01);
+}
+
+input[type="checkbox"]:checked+label>i {
+  margin-left: 24px;
+}
+
+label.toggleBox:active {
+  background-color: #A6B9CB;
+}
+
+label.toggleBox:active>i {
+  width: 34px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+}
+
+input[type="checkbox"]:checked+label:active>i {
+  margin-left: 18px;
+}
+
+input[type="checkbox"]:checked+label {
+  background-color: #008FFF;
+}
+
