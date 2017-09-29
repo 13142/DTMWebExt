@@ -3,20 +3,23 @@ var miniWordlist = [];
 var expandList = [];
 var commonlyMisspelt = [];
 
+var enableSpellCheck;
+var enableTextExpansion;
+
 var qwertyKeyboardArray = [
-  ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
-  ['', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', ' ', 'p', '[', ']', '\\'],
-  ['', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ' ', ';', '\''],
-  ['', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
-  ['', '', '', ' ', ' ', ' ', ' ', ' ', '', '']
+['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '='],
+['', 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', ' ', 'p', '[', ']', '\\'],
+['', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ' ', ';', '\''],
+['', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ',', '.', '/'],
+['', '', '', ' ', ' ', ' ', ' ', ' ', '', '']
 ];
 
 var qwertyShiftedKeyboardArray = [
-  ['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+'],
-  ['', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', '', 'P', '{', '}', '|'],
-  ['', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '', ':', '"'],
-  ['', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'],
-  ['', '', ' ', ' ', ' ', ' ', ' ', '', '']
+['~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+'],
+['', 'Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', '', 'P', '{', '}', '|'],
+['', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', '', ':', '"'],
+['', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '<', '>', '?'],
+['', '', ' ', ' ', ' ', ' ', ' ', '', '']
 ];
 
 readTextFile(browser.extension.getURL("Wordlists/wordlist2.txt"), function(arr) {
@@ -64,6 +67,15 @@ async function loadingExpand() {
   expandList = (await loadAndSave());
 }
 loadingExpand();
+
+async function toggleSwitches() {
+  var data = await browser.storage.sync.get(["enableSpellcheck", "enableTextExpansion"]);
+
+  enableTextExpansion = data.enableTextExpansion;
+  enableSpellCheck = data.enableSpellcheck;
+  console.log(data);
+
+}
 
 async function readTextFileAsync(file) {
   var rawFile = new XMLHttpRequest();
@@ -117,32 +129,28 @@ String.prototype.removePunc = function() {
 function notify(request, sender, sendResponse) {
   let requestType = request.requestType;
   if (requestType === "fullCorrection") {
-
-
-    var rawData = ExpandStuff(request.textBoxData, commonlyMisspeltArr);
-    rawData = ExpandStuff(rawData, expandList);
-    var data = rawData.match(/(\!\!\-)?[a-zA-Z]+/g);
-    rawData = rawData.replace(/[a-zA-Z]+/g, "*<!#^!>*");
-
-    for (var i = 0; i < data.length; i++) {
-      rawData = GetCorrection(data[i], rawData);
+     var rawData = request.textBoxData;
+    if (enableTextExpansion) {
+      rawData = ExpandStuff(rawData, expandList);
     }
+    if (enableSpellCheck) {
+
+      rawData = ExpandStuff(rawData, commonlyMisspeltArr);
+
+      var data = rawData.match(/(\!\!\-)?[a-zA-Z]+/g);
+      rawData = rawData.replace(/[a-zA-Z]+/g, "*<!#^!>*");
+
+      for (var i = 0; i < data.length; i++) {
+        rawData = GetCorrection(data[i], rawData);
+      }
+    }
+    console.log(enableTextExpansion);
     sendResponse(rawData);
   } else if (requestType === "loaded") {
     loadingExpand();
+  }else if (requestType === "toggled") {
+    toggleSwitches();
   }
-  // } else if (requestType === "spaceCorrection") {
-  // //  console.log(request.textBoxData);
-  //   request.textBoxData = request.textBoxData.toString().split(' ');
-  //   var lastWord = request.textBoxData.pop();
-  //   var rawData = lastWord.replace(/[a-zA-Z]+/g, "*<!#^!>*");
-  //   var data = lastWord.match(/[a-zA-Z]+/g);
-  //   for (var i = 0; i < data.length; i++) {
-  //     rawData = GetCorrection(data[i], rawData);
-  //   }
-  //   request.textBoxData.push(rawData);
-  //   sendResponse(request.textBoxData);
-  // }
 }
 
 function ExpandStuff(rawData, listThing) {
@@ -265,12 +273,12 @@ function levDist(s, t) {
   for (var i = n; i >= 0; i--) d[i] = [];
 
   // Step 2
-  for (var i = n; i >= 0; i--) d[i][0] = i;
+for (var i = n; i >= 0; i--) d[i][0] = i;
   for (var j = m; j >= 0; j--) d[0][j] = j;
 
   // Step 3
-  for (var i = 1; i <= n; i++) {
-    var s_i = s.charAt(i - 1);
+for (var i = 1; i <= n; i++) {
+  var s_i = s.charAt(i - 1);
 
     // Step 4
     for (var j = 1; j <= m; j++) {
@@ -312,3 +320,5 @@ function distanceFinder(firstChar, secondChar) {
 
   return Math.pow(Math.pow(firstKey.x - secondKey.x, 2) + Math.pow(firstKey.y - secondKey.y, 2), 0.5);
 }
+
+toggleSwitches();

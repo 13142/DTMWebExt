@@ -14,7 +14,7 @@
     },
     "content_scripts": [{
         "matches": ["<all_urls>"],
-        "js": ["ContentScriptsF/CsMain.js"],
+        "js": ["ContentScriptsF/mousetrap.min.js","ContentScriptsF/CsMain.js"],
         "run_at": "document_end"
     }],
     "background": {

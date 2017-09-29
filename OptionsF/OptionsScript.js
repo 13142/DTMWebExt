@@ -38,6 +38,36 @@ async function readTextFile(file) {
   return temp;
 }
 
+$("#enableTextExpansion").change(function () {
+    browser.storage.sync.set({
+      enableTextExpansion: this.checked
+    });
+    browser.runtime.sendMessage({
+     "requestType": "toggled",
+  });
+});
+
+$("#enableSpellcheck").change(function () {
+    browser.storage.sync.set({
+      enableSpellcheck: this.checked
+    });
+    browser.runtime.sendMessage({
+     "requestType": "toggled",
+  });
+});
+
+$("#saveShortcutBtn").click(function () {
+  var tempShortcutSet = {};
+  tempShortcutSet.shiftModifier = $("#shortcutShift")[0].checked;
+  tempShortcutSet.ctrlModifier = $("#shortcutCtrl")[0].checked;
+  tempShortcutSet.altModifier = $("#shortcutAlt")[0].checked;
+  tempShortcutSet.key = $("#shortcut-key-input").val();
+
+    browser.storage.sync.set({
+      shortcutSet: tempShortcutSet
+    });
+});
+
 async function buildList() {
   let expandList = await loadAndSave();
   let selectList = $("#wordsThings");
@@ -178,10 +208,29 @@ function AddEntryToList(i, expandList, selectList) {
   selectList.append(thing);
 }
 
+async function setSwitches() {
+  var data = await browser.storage.sync.get(["enableSpellcheck", "enableTextExpansion", "shortcutSet"]);
+
+  enableTextExpansion = data.enableTextExpansion;
+  enableSpellCheck = data.enableSpellcheck;
+  $("#enableTextExpansion").prop("checked", data.enableTextExpansion);
+  $("#enableSpellcheck").prop("checked", data.enableSpellcheck);
+  $("#shortcutShift").prop("checked", data.shortcutSet.shiftModifier);
+  $("#shortcutCtrl").prop("checked", data.shortcutSet.ctrlModifier);
+    $("#shortcutAlt").prop("checked", data.shortcutSet.altModifier);
+    $("#shortcut-key-input").val(data.shortcutSet.key);
+
+    tempShortcutSet.shiftModifier = [0].checked;
+  tempShortcutSet.ctrlModifier = $("#shortcutCtrl")[0].checked;
+  tempShortcutSet.altModifier = $("#shortcutAlt")[0].checked;
+  tempShortcutSet.key = $("#shortcut-key-input").val();
+}
+
 function reorderTargets(startTarget) {
   var allList = $("#wordsThings").children();
   for (var i = startTarget; i < allList.length; i++) {
     $(allList[i]).attr("data-target", i - 1);
   }
 }
+setSwitches();
 buildList();

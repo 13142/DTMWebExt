@@ -1,9 +1,146 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-Hello
-  </body>
+<head>
+	<meta charset="utf-8">
+	<style type="text/css">
+	@import url("https://fonts.googleapis.com/css?family=Lato");
+	@import url('https://fonts.googleapis.com/css?family=Titillium+Web:400,700');
+	body {
+		padding: 5px 20px;
+		padding-top: 2px;
+		text-align: left;
+		font-family: Lato;
+		color: #fff;
+		background:#6bafdb;
+		height: 120%;
+		user-select: none;
+		-moz-user-select: none;
+		cursor: default;
+		display: flex;
+		width: 300px;
+		flex-direction: column;
+	}
+
+	.flexItem {
+		padding: 5px;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+	}
+	h2 {
+		margin-top: 2px;
+		text-align: center;
+	}
+	.button {
+		display: inline-block;
+		padding: 5px 10px;
+		background-color: #274cea;
+		color: white;
+		text-transform: uppercase;
+		font-family: 'Titillium Web';
+		font-size: 12pt;
+		border-collapse: collapse;
+		border-radius: 4px;
+	}
+/*	.button:first-of-type {
+		border-radius: 4px 0 0 4px;
+	}
+	.button:last-of-type {
+		border-radius: 0 4px 4px 0;
+		}*/
+		.button:hover {
+			background-color: #4179ff;
+		}
+		.button:active {
+			background-color: #003bb3;
+		}
+		.buttonGroup {
+			margin-top: 10px;
+			display: inline-block;
+			border: solid white 2px;
+			border-radius: 4px;
+		}
+		.buttonGroup .button {
+			float: left;
+			display: block;
+		}
+
+label.toggleBox {
+  display: block;
+  width: 54px;
+  height: 32px;
+  margin: 0px 10px;
+  float: right;
+  border-radius: 100px;
+  transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  background-color: #BABABA;
+    cursor: pointer;
+}
+		input[type="checkbox"] {
+			display: none;
+		}
+
+		i.toggler {
+			height: 28px;
+			width: 28px;
+			background: #ffffff;
+			display: inline-block;
+			border-radius: 100px;
+			margin-top: 2px;
+			margin-left: 2px;
+			transition: all 0.2s ease-in-out;
+			-webkit-transition: all 0.2s ease-in-out;
+			pointer-events: none;
+
+			box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+		}
+
+		label[type="checkbox"]:hover>i {
+			box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.20);
+			transform: scale(1.01);
+		}
+
+		input[type="checkbox"]:checked+label>i {
+			margin-left: 24px;
+		}
+
+		label.toggleBox:active {
+			background-color: #A6B9CB;
+		}
+
+		label.toggleBox:active>i {
+			width: 34px;
+			box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.20);
+		}
+
+		input[type="checkbox"]:checked+label:active>i {
+			margin-left: 18px;
+		}
+
+		input[type="checkbox"]:checked+label {
+			background-color: #008FFF;
+		}
+
+
+	</style>
+</head>
+<body>
+	<h2>Verbis</h2>
+
+	<div class="flexItem">
+		Enable spellcheck
+		<input type="checkbox" id="enableSpellcheck">
+		<label for="enableSpellcheck" class="toggleBox"><i class="toggler"></i></label>
+	</div>
+	          <div class="flexItem">
+            Enable text expansion
+            <input type="checkbox" id="enableTextExpansion">
+            <label for="enableTextExpansion" class="toggleBox"><i class="toggler"></i></label>
+          </div>
+	<div class="flexItem">
+	<div class="button" id="openOptionsBtn">Options</div>
+</div>
+	<script src="BaScript.js"></script>
+</body>
 </html>

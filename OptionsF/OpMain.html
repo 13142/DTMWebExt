@@ -18,12 +18,12 @@
           <div class="flexItem">
             Enable spellcheck
             <input type="checkbox" id="enableSpellcheck">
-            <label for="enableSpellcheck" class="toggleBox"><i></i></label>
+            <label for="enableSpellcheck" class="toggleBox"><i class="toggler"></i></label>
           </div>
           <div class="flexItem">
             Enable text expansion
-            <input type="checkbox" id="enableSpellcheck">
-            <label for="enableSpellcheck" class="toggleBox"><i></i></label>
+            <input type="checkbox" id="enableTextExpansion">
+            <label for="enableTextExpansion" class="toggleBox"><i class="toggler"></i></label>
           </div>
         </div>
       </div>
@@ -45,9 +45,32 @@
     </li>
     <li>
       <input type="radio" name="tabs" id="tab3" />
-      <label for="tab3" role="tab" aria-selected="false" class="tabLabel" aria-controls="panel3" tabindex="0">Misc</label>
+      <label for="tab3" role="tab" aria-selected="false" class="tabLabel" aria-controls="panel3" tabindex="0">Shortcut key</label>
       <div id="tab-content3" class="tab-content" role="tabpanel" aria-labelledby="Misc" aria-hidden="true">
-        <p></p>
+        <div class="flexList">
+          <div class="flexItem">
+            Set shortcut key
+            <input type="text" id="shortcut-key-input" maxlength="1">
+          </div>
+          <div class="flexItem">
+            Ctrl
+            <input type="checkbox" id="shortcutCtrl">
+            <label for="shortcutCtrl" class="toggleBox"><i class="toggler"></i></label>
+          </div>
+          <div class="flexItem">
+            Alt
+            <input type="checkbox" id="shortcutAlt">
+            <label for="shortcutAlt" class="toggleBox"><i class="toggler"></i></label>
+          </div>
+          <div class="flexItem">
+            Shift
+            <input type="checkbox" id="shortcutShift">
+            <label for="shortcutShift" class="toggleBox"><i class="toggler"></i></label>
+          </div>
+          <div class="flexItem">
+             <div class="button" id="saveShortcutBtn">Save shortcut</div>
+          </div>
+        </div>
       </div>
     </li>
   </ul>

@@ -60,11 +60,17 @@ function isEmptyOrSpaces(str) {
     return str === null || str.match(/^ *$/) !== null;
 }
 
+var shortcutSet;
+async function setSwitches() {
+  var data = await browser.storage.sync.get("shortcutSet");
+  shortcutSet = data.shortcutSet;
+}
+setSwitches();
 function keyDown(zEvent) {
-    if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyM") {
+    console.log(zEvent.code);
+    if ((zEvent.ctrlKey || !shortcutSet.ctrlModifier) && (zEvent.altKey || !shortcutSet.altModifier) && (zEvent.shiftKey || !shortcutSet.shiftModifier) && zEvent.code === "Key" + shortcutSet.key.toUpperCase()) {
         var innerString = document.activeElement.value;
         if (document.activeElement.tagName.toLowerCase() == "div") {
-            console.log("IS A DIV");
             innerString = document.activeElement.innerText;
         }
         var selectedText = innerString;
@@ -79,21 +85,20 @@ function keyDown(zEvent) {
         //     }
         //   }
         // }
-        console.log(selectedText);
-        console.log(document.activeElement);
+            console.log(innerString);
         var sending = browser.runtime.sendMessage({
             "textBoxData": innerString,
             "requestType": "fullCorrection"
         });
         sending.then(handleResponse);
     } else if (zEvent.code === "Space") {
-        console.log(doGetCaretPosition(document.activeElement));
-        saveSelection();
-        var sending = browser.runtime.sendMessage({
-            "textBoxData": getWordPrecedingCaret(document.activeElement),
-            //  "textboxPosition": doGetCaretPosition(document.activeElement),
-            "requestType": "spaceCorrection"
-        });
+        // console.log(doGetCaretPosition(document.activeElement));
+        // saveSelection();
+        // var sending = browser.runtime.sendMessage({
+        //     "textBoxData": getWordPrecedingCaret(document.activeElement),
+        //     //  "textboxPosition": doGetCaretPosition(document.activeElement),
+        //     "requestType": "spaceCorrection"
+        // });
 
         //  var latestWord =
         // var sending = browser.runtime.sendMessage({
