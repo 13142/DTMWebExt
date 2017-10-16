@@ -210,20 +210,24 @@ function AddEntryToList(i, expandList, selectList) {
 
 async function setSwitches() {
   var data = await browser.storage.sync.get(["enableSpellcheck", "enableTextExpansion", "shortcutSet"]);
-
+  if (data.enableTextExpansion == null || data.enableSpellcheck == null || data.shortcutSet == null) {
+    browser.storage.sync.set({
+      enableTextExpansion: true,
+      enableSpellcheck: true,
+      shortcutSet: {shiftModifier: false, ctrlModifier: true, altModifier: true, key: "M"},
+    });
+    setSwitches();
+    return;
+  }
   enableTextExpansion = data.enableTextExpansion;
   enableSpellCheck = data.enableSpellcheck;
+
   $("#enableTextExpansion").prop("checked", data.enableTextExpansion);
   $("#enableSpellcheck").prop("checked", data.enableSpellcheck);
   $("#shortcutShift").prop("checked", data.shortcutSet.shiftModifier);
   $("#shortcutCtrl").prop("checked", data.shortcutSet.ctrlModifier);
-    $("#shortcutAlt").prop("checked", data.shortcutSet.altModifier);
-    $("#shortcut-key-input").val(data.shortcutSet.key);
-
-    tempShortcutSet.shiftModifier = [0].checked;
-  tempShortcutSet.ctrlModifier = $("#shortcutCtrl")[0].checked;
-  tempShortcutSet.altModifier = $("#shortcutAlt")[0].checked;
-  tempShortcutSet.key = $("#shortcut-key-input").val();
+  $("#shortcutAlt").prop("checked", data.shortcutSet.altModifier);
+  $("#shortcut-key-input").val(data.shortcutSet.key);
 }
 
 function reorderTargets(startTarget) {

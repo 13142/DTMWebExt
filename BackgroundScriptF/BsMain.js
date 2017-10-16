@@ -68,6 +68,21 @@ async function loadingExpand() {
 }
 loadingExpand();
 
+async function setSwitches() {
+  var data = await browser.storage.sync.get(["enableSpellcheck", "enableTextExpansion", "shortcutSet"]);
+  if (data.enableTextExpansion == null || data.enableSpellcheck == null || data.shortcutSet == null) {
+    browser.storage.sync.set({
+      enableTextExpansion: true,
+      enableSpellcheck: true,
+      shortcutSet: {shiftModifier: false, ctrlModifier: true, altModifier: true, key: "M"},
+    });
+    setSwitches();
+    return;
+  }
+  enableTextExpansion = data.enableTextExpansion;
+  enableSpellCheck = data.enableSpellcheck;
+}
+setSwitches();
 async function toggleSwitches() {
   var data = await browser.storage.sync.get(["enableSpellcheck", "enableTextExpansion"]);
 

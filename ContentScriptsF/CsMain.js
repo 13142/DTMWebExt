@@ -22,7 +22,7 @@ function handleResponse(message) {
     if (document.activeElement.tagName.toLowerCase() == "div") {
         document.activeElement.innerText = message;
     }else {
-            document.activeElement.value = message;
+        document.activeElement.value = message;
     }
 
 }
@@ -67,47 +67,24 @@ async function setSwitches() {
 }
 setSwitches();
 function keyDown(zEvent) {
-    console.log(zEvent.code);
-    if ((zEvent.ctrlKey || !shortcutSet.ctrlModifier) && (zEvent.altKey || !shortcutSet.altModifier) && (zEvent.shiftKey || !shortcutSet.shiftModifier) && zEvent.code === "Key" + shortcutSet.key.toUpperCase()) {
+    if ((zEvent.ctrlKey || !shortcutSet.ctrlModifier) && 
+        (zEvent.altKey || !shortcutSet.altModifier) && 
+        (zEvent.shiftKey || !shortcutSet.shiftModifier) &&
+        zEvent.key.toUpperCase() === shortcutSet.key.toUpperCase()) {
+
         var innerString = document.activeElement.value;
-        if (document.activeElement.tagName.toLowerCase() == "div") {
-            innerString = document.activeElement.innerText;
-        }
-        var selectedText = innerString;
-        // if (selectedText == '') {
-        //   var frames = window.frames;
-        //   for (var i = 0; i < frames.length; i++) {
-        //     if (selectedText == '') {
-        //       selectedText = frames[i].document.getSelection().getRangeAt(0);
-        //       console.log("Yes  " + frames[i].document.getSelection().getRangeAt(0));
-        //     } else {
-        //       break;
-        //     }
-        //   }
-        // }
-            console.log(innerString);
-        var sending = browser.runtime.sendMessage({
-            "textBoxData": innerString,
-            "requestType": "fullCorrection"
-        });
-        sending.then(handleResponse);
-    } else if (zEvent.code === "Space") {
-        // console.log(doGetCaretPosition(document.activeElement));
-        // saveSelection();
-        // var sending = browser.runtime.sendMessage({
-        //     "textBoxData": getWordPrecedingCaret(document.activeElement),
-        //     //  "textboxPosition": doGetCaretPosition(document.activeElement),
-        //     "requestType": "spaceCorrection"
-        // });
-
-        //  var latestWord =
-        // var sending = browser.runtime.sendMessage({
-        //   "textBoxData": latestWord,
-        //   "requestType": "spaceCorrection"
-        // });
-        sending.then(handleSpacedResponse);
-
+    if (document.activeElement.tagName.toLowerCase() == "div") {
+        innerString = document.activeElement.innerText;
     }
+    var selectedText = innerString;
+
+    console.log(innerString);
+    var sending = browser.runtime.sendMessage({
+        "textBoxData": innerString,
+        "requestType": "fullCorrection"
+    });
+    sending.then(handleResponse);
+}
 }
 var savedRange, isInFocus;
 
