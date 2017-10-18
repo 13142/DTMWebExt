@@ -1,11 +1,11 @@
 
 var openOptionsBtn = document.getElementById("openOptionsBtn");
-var enableTextExpansionBtn = document.getElementById("enableTextExpansion")
-var enableSpellcheckBtn = document.getElementById("enableSpellcheck");
+//var enableTextExpansionBtn = document.getElementById("enableTextExpansion")
+//var enableSpellcheckBtn = document.getElementById("enableSpellcheck");
 
-enableSpellcheckBtn.addEventListener('click', enableSpellcheckFunc);
+//enableSpellcheckBtn.addEventListener('click', enableSpellcheckFunc);
 openOptionsBtn.addEventListener('click', OpenOptionsMenu);
-enableTextExpansionBtn.addEventListener('click', enableTextExpansionFunc);
+//enableTextExpansionBtn.addEventListener('click', enableTextExpansionFunc);
 
 function OpenOptionsMenu()
 {
