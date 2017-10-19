@@ -144,28 +144,30 @@ String.prototype.removePunc = function() {
 function notify(request, sender, sendResponse) {
   let requestType = request.requestType;
   if (requestType === "fullCorrection") {
-     var rawData = request.textBoxData;
-    if (enableTextExpansion) {
-      rawData = ExpandStuff(rawData, expandList);
-    }
-    if (enableSpellCheck) {
-
-      rawData = ExpandStuff(rawData, commonlyMisspeltArr);
-
-      var data = rawData.match(/(\!\!\-)?[a-zA-Z]+/g);
-      rawData = rawData.replace(/[a-zA-Z]+/g, "*<!#^!>*");
-
-      for (var i = 0; i < data.length; i++) {
-        rawData = GetCorrection(data[i], rawData);
-      }
-    }
-    console.log(enableTextExpansion);
-    sendResponse(rawData);
-  } else if (requestType === "loaded") {
-    loadingExpand();
-  }else if (requestType === "toggled") {
-    toggleSwitches();
+   var rawData = request.textBoxData;
+   if (enableTextExpansion) {
+    rawData = ExpandStuff(rawData, expandList);
   }
+  if (enableSpellCheck) {
+    rawData = ExpandStuff(rawData, commonlyMisspeltArr);
+    var data = rawData.match(/(\!\!\-)?[a-zA-Z]+/g);
+    rawData = rawData.replace(/[a-zA-Z]+/g, "*<!#^!>*");
+    for (var i = 0; i < data.length; i++) {
+      rawData = GetCorrection(data[i], rawData);
+    }
+  }else if (enableTextExpansion) {
+    var data = rawData.match(/(\!\!\-)[a-zA-Z]+/g);
+    rawData = rawData.replace(/(\!\!\-)/g, "");
+
+  }
+
+  console.log(enableTextExpansion);
+  sendResponse(rawData);
+} else if (requestType === "loaded") {
+  loadingExpand();
+}else if (requestType === "toggled") {
+  toggleSwitches();
+}
 }
 
 function ExpandStuff(rawData, listThing) {
